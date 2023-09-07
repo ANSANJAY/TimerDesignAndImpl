@@ -79,6 +79,21 @@ The Wheel Timer runs in a separate thread, started by the `start_wheel_timer` fu
 1. Create a new thread using the POSIX `pthread_create` API.
 2. The function `wheel_function` is set as the start routine for this thread.
 
+```C
+
+void
+start_wheel_timer(wheel_timer_t *wt){
+
+	_pthread_t *thread = wt->wheel_thread;
+	if (pthread_create(&thread->pthread_handle, &thread->attr, wheel_fn, (void*)wt))
+	{
+		printf("Wheel Timer Thread initialization failed, exiting ... \n");
+		exit(0);
+	}
+}
+
+```
+
 ## Wheel Function Logic 🎡
 This function is the core logic of the Wheel Timer. It performs the following steps:
 1. Wait for the time defined by `Clock Tick Interval`.
