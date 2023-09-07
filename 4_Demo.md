@@ -2,7 +2,7 @@
 ## Detailed Notes on Real-Time Timer Implementation 📝
 
 ### Introduction 🎬
-- The tutorial video covers real-time timer implementation, diving deep into its APIs and internal functioning.
+- This covers real-time timer implementation, diving deep into its APIs and internal functioning.
 - Provides a real-world example of how to use a real-time timer in an application.
 
 ### Internal Functioning 🤖
