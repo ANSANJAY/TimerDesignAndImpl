@@ -12,6 +12,39 @@ Welcome to the Wheel Timer Project! This project implements a highly efficient w
 - **Modular**: Separate functions for starting, stopping, and resetting the wheel timer.
 - **Custom Callbacks**: Support for custom application callbacks with custom arguments.
 
+```
+  +-------------------------------------------------------------------+
+  |                        Wheel Timer ASCII Art                       |
+  +-------------------------------------------------------------------+
+  |                                                                   |
+  |                             Time Wheel                             |
+  |                                                                   |
+  |                             +-----+                                |
+  |                        +----|  9  |----+                           |
+  |                   +----|               |----+                      |
+  |              +----|  8                   0  |----+                 |
+  |         +----|                                 |----+              |
+  |    +----|  7                                     1  |----+         |
+  |   |                                                  |            |
+  |   |  6                                              2             |
+  |   |                                                  |            |
+  |    +----|  5                                     3  |----+         |
+  |         +----|                                 |----+              |
+  |              +----|  4                   4  |----+                 |
+  |                   +----|               |----+                      |
+  |                        +----|  3  |----+                           |
+  |                             +-----+                                |
+  |                                                                   |
+  |        R = Number of rotations                                     |
+  |        Slot 0,1,2,3... represent different slots in the wheel.     |
+  |        Each slot has a linked list (not shown) that holds the      |
+  |        events scheduled for that slot.                             |
+  |                                                                   |
+  +-------------------------------------------------------------------+
+
+
+
+```
 ## Getting Started 🚀
 
 ### Prerequisites 📝
