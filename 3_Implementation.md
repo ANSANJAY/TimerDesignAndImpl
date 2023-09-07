@@ -45,6 +45,28 @@ The Wheel Timer is initialized by the function `init_real_timer` which takes two
 1. The number of slots.
 2. Clock tick interval.
 
+```C
+wheel_timer_t*
+init_wheel_timer(int wheel_size, int clock_tic_interval){
+	wheel_timer_t *wt = calloc(1, sizeof(wheel_timer_t) + 
+				wheel_size*sizeof(ll_t *));
+
+	wt->clock_tic_interval = clock_tic_interval;
+	wt->wheel_size = wheel_size;
+
+	pthread_mutex_init(&wt->wheel_timer_mutex, NULL);
+	wt->wheel_thread = calloc(1, sizeof(_pthread_t));
+	pthread_init(wt->wheel_thread, 0, TH_DETACHED);
+
+	int i = 0;
+	for(; i < wheel_size; i++)
+		wt->slots[i] = init_singly_ll();
+
+	return wt;
+}
+
+```
+
 ### Steps to Initialize 📝
 1. Allocate memory for the wheel timer and its array of slots.
 2. Initialize each member of the wheel timer using the provided arguments.
