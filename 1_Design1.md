@@ -1,8 +1,9 @@
 # Wheel Timer: Detailed Notes for Revision 📚🕒
 
 ## Introduction 🌟
-This segment of the video provides an in-depth look at a specialized data structure called the "Wheel Timer," which resembles a wall clock. It's designed to efficiently manage timing events, especially in the context of routing tables with millions of entries.
+This segment provides an in-depth look at a specialized data structure called the "Wheel Timer," which resembles a wall clock. It's designed to efficiently manage timing events, especially in the context of routing tables with millions of entries.
 
+Linux Timer + Wheel Data structure = Wheel Timer
 ---
 
 ## Basic Design of Wheel Timer 🎡
@@ -12,7 +13,7 @@ This segment of the video provides an in-depth look at a specialized data struct
 
 ### Linked List in Slots 🗂️
 - Each slot in the Wheel Timer has an attached linked list.
-- This list contains events that are triggered when the timer's clock needle hits the particular slot.
+- This list contains events that are triggered when the timer's clock needle hits a particular slot.
 
 ### Complete Rotations 🔄
 - A value "R" increases by one each time the Wheel Timer completes a full rotation.
@@ -51,7 +52,7 @@ This segment of the video provides an in-depth look at a specialized data struct
 
 ### Q3: What does the value "R" in the Wheel Timer represent?
 
-**A3**: The value "R" represents the number of complete rotations that the Wheel Timer needle has made. It increments by one each time the needle completes a full rotation around the wheel.
+**A3**: The value "R" represents the number of complete rotations the Wheel Timer needle has made. It increments by one each time the needle completes a full rotation around the wheel.
 
 ### Q4: How are events dynamically scheduled in the Wheel Timer?
 
