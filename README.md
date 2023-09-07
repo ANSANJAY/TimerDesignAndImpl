@@ -14,7 +14,7 @@ Welcome to the Wheel Timer Project! This project implements a highly efficient w
 
 ```
   +-------------------------------------------------------------------+
-  |                        Wheel Timer ASCII Art                       |
+  |                        Wheel Timer                                |
   +-------------------------------------------------------------------+
   |                                                                   |
   |                             Time Wheel                             |
