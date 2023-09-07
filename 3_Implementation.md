@@ -148,6 +148,19 @@ Certainly, the `wheel_function` does the following:
 - Events are stored in a linked list of slots.
 - The data structure representing an event is `real_timer_element_t`.
 
+```C
+struct _wheel_timer_elem_t{
+	int time_interval;
+	int execute_cycle_no;
+	app_call_back app_callback;
+	void *arg;
+	int arg_size;
+	char is_recurrence;
+	/* control param*/
+	char is_alive;
+};
+```
+
 ##### Members of `real_timer_element_t` 👨‍💻
 1. **Time Interval**: Time after which the event should be triggered.
 2. **Rotation Number (small R-value)**: Number of rotations the wheel timer needs for the event to be triggered.
@@ -162,9 +175,51 @@ Certainly, the `wheel_function` does the following:
 - The function pointer is of a particular type that returns a `void*` and takes a `void*` and the size of the argument as inputs.
 - Any application function with this signature can be invoked.
 
+  ```C
+  typedef void (*app_call_back)(void *arg, int sizeof_arg);
+  ```
+
 #### API to Register an Event 📝
 - API name: `Register_App_Event`
 - Returns the event itself (`real_timer_element_t`).
+
+```C
+wheel_timer_elem_t *
+register_app_event(wheel_timer_t *wt,
+                   app_call_back call_back,
+                   void *arg,
+		   int arg_size,
+                   int time_interval,
+                   char is_recursive){
+
+	if(!wt || !call_back) return NULL;
+	wheel_timer_elem_t *wt_elem = calloc(1, sizeof(wheel_timer_elem_t));
+	
+	wt_elem->time_interval = time_interval;
+	wt_elem->app_callback  = call_back;
+	wt_elem->arg 	       = calloc(1, arg_size);
+	memcpy(wt_elem->arg, arg, arg_size);
+	wt_elem->arg_size      = arg_size;
+	wt_elem->is_recurrence = is_recursive;
+
+	/*Stop the Wheel timer Thread here*/
+	pause_wheel_timer(wt);
+
+	int wt_absolute_slot = GET_WT_CURRENT_ABS_SLOT_NO(wt);
+	int registration_next_abs_slot = wt_absolute_slot + (wt_elem->time_interval/wt->clock_tic_interval);
+	int cycle_no = registration_next_abs_slot / wt->wheel_size;
+	int slot_no  = registration_next_abs_slot % wt->wheel_size;
+	wt_elem->execute_cycle_no = cycle_no;
+	wt_elem->is_alive = 1;
+	singly_ll_add_node_by_val(wt->slots[slot_no], wt_elem);
+	//printf("Wheel Timer snapshot on New Registration\n");
+	//print_wheel_timer(wt);
+
+	resume_wheel_timer(wt);
+	return wt_elem;
+}
+```
+
 
 ##### Arguments to `Register_App_Event` 🗂
 1. **Wheel Timer Object**: With whom the registration is done.
