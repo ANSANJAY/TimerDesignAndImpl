@@ -6,6 +6,18 @@ This guide provides an in-depth understanding of the Wheel Timer design, its imp
 ## Data Structure of Wheel Timer 🏗️
 Wheel Timer is represented as a C structure with the following six members:
 
+```C
+typedef struct _wheel_timer_t {
+	int current_clock_tic;
+	int clock_tic_interval;
+	int wheel_size;
+	int current_cycle_no;
+	_pthread_t *wheel_thread;
+	pthread_mutex_t wheel_timer_mutex;
+	ll_t *slots[0];
+} wheel_timer_t;
+```
+
 1. **Current Clock Tick** 🕒  
    - Represents the current slot number.
    - Analogous to the seconds hand of a clock.
